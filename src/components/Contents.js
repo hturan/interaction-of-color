@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import chroma from 'chroma-js';
 
@@ -33,7 +33,7 @@ export default props =>
       </li>
     </ul>
 
-    <IntensityAnimation baseColor="blue" />
+    <IntensityAnimation />
   </div>;
 
 const reds = [
@@ -47,32 +47,49 @@ const reds = [
   chroma.hsl(344, 0.69, 0.43)
 ];
 
-const IntensityAnimation = ({ baseColor }) =>
-  <div
-    style={{
-      position: 'absolute',
-      top: 0,
-      right: 0,
-      left: '50%',
-      bottom: 0,
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center'
-    }}
-  >
-    {reds.map((color, index) =>
+class IntensityAnimation extends Component {
+  componentDidMount() {
+    this.interval = setInterval(() => this.forceUpdate(), 5000);
+
+    setTimeout(() => this.forceUpdate(), 0);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  render() {
+    return (
       <div
         style={{
-          display: 'inline-block',
-          height: '70px',
-          width: '70%',
-          position: 'relative',
-          zIndex: Math.floor(Math.random() * 10),
-          marginTop: 40 * Math.random() - 20,
-          marginLeft: 100 * Math.random(),
-          backgroundColor: color,
-          transform: `rotate(${10 * Math.random() - 5}deg)`
+          position: 'absolute',
+          overflow: 'hidden',
+          top: 0,
+          right: 0,
+          left: '50%',
+          bottom: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center'
         }}
-      />
-    )}
-  </div>;
+      >
+        {reds.map((color, index) =>
+          <div
+            key={index}
+            style={{
+              display: 'inline-block',
+              height: '5vw',
+              width: '70%',
+              position: 'relative',
+              top: 0,
+              zIndex: Math.floor(Math.random() * 10),
+              backgroundColor: color,
+              transform: `rotate(${10 * Math.random() - 5}deg) translate(${100 * Math.random()}px, ${ 60 * Math.random() - 20}px)`,
+              transition: 'transform 3s, z-index 1.5s'
+            }}
+          />
+        )}
+      </div>
+    );
+  }
+}
