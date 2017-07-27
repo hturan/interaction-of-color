@@ -37,19 +37,43 @@ export default props =>
   </div>;
 
 const reds = [
-  chroma.hsl(8, 0.78, 0.69),
-  chroma.hsl(9, 0.75, 0.55),
-  chroma.hsl(356, 0.7, 0.61),
-  chroma.hsl(357, 0.65, 0.45),
-  chroma.hsl(357, 0.72, 0.72),
-  chroma.hsl(351, 0.42, 0.52),
-  chroma.hsl(9, 0.78, 0.56),
-  chroma.hsl(344, 0.69, 0.43)
+  {
+    color: chroma.hsl(8, 0.78, 0.69),
+    zIndex: Math.floor(Math.random() * 10)
+  },
+  {
+    color: chroma.hsl(9, 0.75, 0.55),
+    zIndex: Math.floor(Math.random() * 10)
+  },
+  {
+    color: chroma.hsl(356, 0.7, 0.61),
+    zIndex: Math.floor(Math.random() * 10)
+  },
+  {
+    color: chroma.hsl(357, 0.65, 0.45),
+    zIndex: Math.floor(Math.random() * 10)
+  },
+  {
+    color: chroma.hsl(357, 0.72, 0.72),
+    zIndex: Math.floor(Math.random() * 10)
+  },
+  {
+    color: chroma.hsl(351, 0.42, 0.52),
+    zIndex: Math.floor(Math.random() * 10)
+  },
+  {
+    color: chroma.hsl(9, 0.78, 0.56),
+    zIndex: Math.floor(Math.random() * 10)
+  },
+  {
+    color: chroma.hsl(344, 0.69, 0.43),
+    zIndex: Math.floor(Math.random() * 10)
+  },
 ];
 
 class IntensityAnimation extends Component {
   componentDidMount() {
-    this.interval = setInterval(() => this.forceUpdate(), 5000);
+    this.interval = setInterval(() => this.forceUpdate(), 7000);
 
     setTimeout(() => this.forceUpdate(), 0);
   }
@@ -73,7 +97,7 @@ class IntensityAnimation extends Component {
           justifyContent: 'center'
         }}
       >
-        {reds.map((color, index) =>
+        {reds.map(({color, zIndex}, index) =>
           <div
             key={index}
             style={{
@@ -82,10 +106,10 @@ class IntensityAnimation extends Component {
               width: '70%',
               position: 'relative',
               top: 0,
-              zIndex: Math.floor(Math.random() * 10),
+              zIndex,
               backgroundColor: color,
               transform: `rotate(${10 * Math.random() - 5}deg) translate(${100 * Math.random()}px, ${ 60 * Math.random() - 20}px)`,
-              transition: 'transform 3s, z-index 1.5s'
+              transition: 'transform 5s'
             }}
           />
         )}
