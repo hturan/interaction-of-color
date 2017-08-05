@@ -31,6 +31,11 @@ export default props =>
           V — Light intensity, lightness
         </Link>
       </li>
+      <li>
+        <Link style={linkStyle} to="/sandbox">
+          Sandbox
+        </Link>
+      </li>
     </ul>
 
     <IntensityAnimation baseColor="red" />
@@ -61,7 +66,7 @@ class IntensityAnimation extends Component {
     const max = 0.7;
     const min = 0.45;
 
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 20; i++) {
       this.colors.push({
         color: chroma.hsl(
           generateHue(props.baseColor),
@@ -92,10 +97,7 @@ class IntensityAnimation extends Component {
           top: 0,
           right: 0,
           left: '50%',
-          bottom: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center'
+          bottom: 0
         }}
       >
         {this.colors.map(({ color, zIndex }, index) =>
