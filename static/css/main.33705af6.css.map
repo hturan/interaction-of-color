@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.css"],"names":[],"mappings":"AAAA,KACE,SACA,UACA,uBAAyB,CAG3B,qBACE,YACA,UAAY","file":"static/css/main.33705af6.css","sourcesContent":["body {\n  margin: 0;\n  padding: 0;\n  font-family: Baskerville;\n}\n\nhtml, body, #root, main {\n  height: 100%;\n  width: 100%;\n}\n\n\n// WEBPACK FOOTER //\n// ./src/index.css"],"sourceRoot":""}
