@@ -5,8 +5,10 @@ const clamp = (value, min, max) => {
   return Math.max(Math.min(value, max), min);
 }
 
+const stopPropagation = event => event.stopPropagation();
+
 const HSLInput = ({ handleAxisChange, ...props }) =>
-  <label style={{ marginRight: 5, fontStyle: 'italic' }}>
+  <label style={{ marginRight: 5, fontStyle: 'italic' }} onClick={stopPropagation}>
     <input type="radio" onChange={handleAxisChange} {...props} />
     <span style={{ marginLeft: 3 }}>
       {props.value.charAt(0).toUpperCase() + props.value.slice(1)}
@@ -23,13 +25,15 @@ export default class Sandbox extends Component {
       scroll: 'hue',
       hue: 0,
       saturation: 0.5,
-      lightness: 0.9
+      lightness: 0.9,
+      palette: []
     };
 
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleAxisChange = this.handleAxisChange.bind(this);
     this.handleWindowScroll = this.handleWindowScroll.bind(this);
     this.handleForceTouch = this.handleForceTouch.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -130,6 +134,13 @@ export default class Sandbox extends Component {
     });
   }
 
+  handleClick() {
+    const {palette, hue, saturation, lightness} = this.state;
+    this.setState({
+      palette: [...palette, [hue, saturation, lightness]]
+    });
+  }
+
   render() {
     const { hue, saturation, lightness, xAxis, yAxis, scroll } = this.state;
 
@@ -145,6 +156,7 @@ export default class Sandbox extends Component {
           backgroundColor: chroma.hsl(hue, saturation, lightness)
         }}
         onMouseMove={this.handleMouseMove}
+        onClick={this.handleClick}
       >
         <div
           onMouseMove={this.handleMouseMove}
@@ -236,6 +248,25 @@ export default class Sandbox extends Component {
             checked={scroll === 'lightness'}
             onChange={this.handleAxisChange}
           />
+        </div>
+
+        <div style={{
+          position: 'absolute',
+          right: 40,
+          bottom: 20
+        }}>
+          {this.state.palette.map(hsl => (
+            <div
+              title={`hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`}
+              style={{
+                display: 'inline-block',
+                padding: 12,
+                marginLeft: 5,
+                backgroundColor: chroma.hsl(...hsl),
+                border: '2px solid white'
+              }}
+            />
+          ))}
         </div>
       </div>
     );
