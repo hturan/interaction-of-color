@@ -3,12 +3,15 @@ import chroma from 'chroma-js';
 
 const clamp = (value, min, max) => {
   return Math.max(Math.min(value, max), min);
-}
+};
 
 const stopPropagation = event => event.stopPropagation();
 
 const HSLInput = ({ handleAxisChange, ...props }) =>
-  <label style={{ marginRight: 5, fontStyle: 'italic' }} onClick={stopPropagation}>
+  <label
+    style={{ marginRight: 5, fontStyle: 'italic' }}
+    onClick={stopPropagation}
+  >
     <input type="radio" onChange={handleAxisChange} {...props} />
     <span style={{ marginLeft: 3 }}>
       {props.value.charAt(0).toUpperCase() + props.value.slice(1)}
@@ -135,7 +138,7 @@ export default class Sandbox extends Component {
   }
 
   handleClick() {
-    const {palette, hue, saturation, lightness} = this.state;
+    const { palette, hue, saturation, lightness } = this.state;
     this.setState({
       palette: [...palette, [hue, saturation, lightness]]
     });
@@ -250,12 +253,14 @@ export default class Sandbox extends Component {
           />
         </div>
 
-        <div style={{
-          position: 'absolute',
-          right: 40,
-          bottom: 20
-        }}>
-          {this.state.palette.map(hsl => (
+        <div
+          style={{
+            position: 'absolute',
+            right: 40,
+            bottom: 20
+          }}
+        >
+          {this.state.palette.map(hsl =>
             <div
               title={`hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`}
               style={{
@@ -266,7 +271,7 @@ export default class Sandbox extends Component {
                 border: '2px solid white'
               }}
             />
-          ))}
+          )}
         </div>
       </div>
     );
