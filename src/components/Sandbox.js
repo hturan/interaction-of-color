@@ -44,7 +44,7 @@ export default class Sandbox extends Component {
     // this.container.addEventListener('webkitmouseforcechanged', this.handleForceTouch);
 
     // Scroll
-    window.addEventListener('scroll', this.handleWindowScroll);
+    window.addEventListener('wheel', this.handleWindowScroll);
   }
 
   componentWillUnmount() {
@@ -52,7 +52,7 @@ export default class Sandbox extends Component {
     // this.container.removeEventListener('webkitmouseforcechanged', this.handleForceTouch);
 
     // Scroll
-    window.removeEventListener('scroll', this.handleWindowScroll);
+    window.removeEventListener('wheel', this.handleWindowScroll);
   }
 
   handleForceTouch(event) {
@@ -64,7 +64,10 @@ export default class Sandbox extends Component {
   }
 
   handleWindowScroll(event) {
-    const scrollDelta = window.scrollY;
+    // Disable scrolling
+    event.preventDefault();
+
+    const scrollDelta = event.deltaY / 20;
 
     let value;
 
